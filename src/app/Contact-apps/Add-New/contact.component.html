@@ -1,0 +1,82 @@
+<div class="Contact-form p-2">
+  <h4>Add Contact</h4>
+</div>
+<div>
+  <div class="contact-form">
+    <div class="container mt-4">
+      <form [formGroup]="contactForm">
+        <div class="mb-3">
+          <label for="firstName" class="form-label">First Name</label>
+          <input
+            id="firstName"
+            formControlName="FirstName"
+            class="form-control"
+            type="text"
+          />
+          <div
+            *ngIf="
+              contactForm.get('FirstName')!.invalid &&
+              contactForm.get('FirstName')!.touched
+            "
+            class="text-danger"
+          >
+            First Name is required
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input
+            id="lastName"
+            formControlName="LastName"
+            class="form-control"
+            type="text"
+          />
+          <div
+            *ngIf="
+              contactForm.get('LastName')!.invalid &&
+              contactForm.get('LastName')!.touched
+            "
+            class="text-danger"
+          >
+            Last Name is required
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            id="email"
+            formControlName="Email"
+            class="form-control"
+            type="email"
+          />
+          <div
+            *ngIf="
+              contactForm.get('Email')!.invalid &&
+              contactForm.get('Email')!.touched
+            "
+            class="text-danger"
+          >
+            <div *ngIf="contactForm.get('Email')!.errors?.['required']">
+              Email is required
+            </div>
+            <div *ngIf="contactForm.get('Email')!.errors?.['email']">
+              Invalid email format
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="button d-flex p-3">
+    <div class="add-button">
+      <button type="button" class="btn btn-success" (click)="AddContactDetails()">{{!IsUpdate ? 'Add' : 'Update'}}</button>
+    </div>
+    <div class="cancel-button">
+      <button type="button" class="btn btn-danger" (click)="CloseModel()">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
