@@ -1,48 +1,66 @@
 <div class="contact">
-    <div class="add-new">
-      <button type="button" class="btn btn-danger" (click)="AddConactDetails(0)">New</button>
-    </div>
-    <div class="contact-list">
-      <div class="container">
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th scope="col" class="index">Id</th>
-              <th scope="col" class="first-name">FirstName</th>
-              <th scope="col" class="last-name">LastName</th>
-              <th scope="col" class="email-column">Email</th>
-              <th scope="col" class="edit-column">Edit</th>
-              <th scope="col" class="delete-column">Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let contact of ContactListData">
-              <th scope="row">{{contact.id}}</th>
-              <td>{{contact.firstName}}</td>
-              <td>{{contact.lastName}}</td>
-              <td>{{contact.email}}</td>
-              <td><button type="button" class="btn btn-primary" (click)="EditContact(contact.id)">Edit</button></td>
-              <td><button type="button" class="btn btn-danger" (click)="DeleteContact(contact.id)">Delete</button></td>
-            </tr>
-            <!-- <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>nirmal123@gmail.com</td>
-              <td><button type="button" class="btn btn-primary">Edit</button></td>
-              <td><button type="button" class="btn btn-danger">Delete</button></td>
-            </tr> -->
-            <!-- <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>Birds</td>
-              <td>nirmal123@gmail.com</td>
-              <td><button type="button" class="btn btn-primary">Edit</button></td>
-              <td><button type="button" class="btn btn-danger">Delete</button></td>
-            </tr> -->
-          </tbody>
-        </table>
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="add-new">
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="AddConactDetails(0)"
+        >
+          New
+        </button>
       </div>
     </div>
+    <div class="col-sm-4">
+      <div class="main">
+        <div class="form-group has-search">
+          <span class="fa fa-search form-searchbox"></span>
+          <input type="text" class="form-control" placeholder="Search" />
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6"></div>
   </div>
-  
+  <div class="contact-list">
+    <div class="container">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col" class="index">Id</th>
+            <th scope="col" class="first-name">FirstName</th>
+            <th scope="col" class="last-name">LastName</th>
+            <th scope="col" class="email-column">Email</th>
+            <th scope="col" class="edit-column">Edit</th>
+            <th scope="col" class="delete-column">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let contact of ContactListData">
+            <th scope="row">{{ contact.id }}</th>
+            <td>{{ contact.firstName }}</td>
+            <td>{{ contact.lastName }}</td>
+            <td>{{ contact.email }}</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-primary"
+                (click)="EditContact(contact.id)"
+              >
+                Edit
+              </button>
+            </td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="DeleteContact(contact.id)"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
