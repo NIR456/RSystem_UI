@@ -1,6 +1,6 @@
 <div class="contact">
   <div class="row">
-    <div class="col-sm-2">
+    <div class="col-sm-2 pr-0">
       <div class="add-new">
         <button
           type="button"
@@ -11,15 +11,15 @@
         </button>
       </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-4 pl-0">
       <div class="main">
         <div class="form-group has-search">
           <span class="fa fa-search form-searchbox"></span>
-          <input type="text" class="form-control" placeholder="Search" />
+          <input type="text" class="form-control" placeholder="Search with Name" (keyup)="SearchContactList($event)"/>
         </div>
       </div>
     </div>
-    <div class="col-sm-6"></div>
+    <div class="col-sm-7"></div>
   </div>
   <div class="contact-list">
     <div class="container">

@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ContactListComponent implements OnInit {
   public ContactListData: Array<any> = [];
   public editdata: Array<any> = [];
+  public ContactListdataForSearch: Array<any> = [];
   constructor(private contactservice: ContactService,
     private modalService: NgbModal,private toastrService: ToastrService) {
 
@@ -46,6 +47,7 @@ export class ContactListComponent implements OnInit {
       if (data && data.responseStatus) {
         if (data.responseObject.length >= 0) {
           this.ContactListData = data.responseObject;
+          this.ContactListdataForSearch = data.responseObject;
         }else{
           this.toastrService.error(data.ResponseMessage, '');
         }
@@ -72,6 +74,16 @@ export class ContactListComponent implements OnInit {
       }
     }
     )
+  }
+
+  SearchContactList(event: any){
+     let ContactListData = this.ContactListData;
+     let searchtext = event.target.value;
+      if(event.target.value != ""){
+        this.ContactListData = ContactListData.filter(x => x.firstName.toLowerCase().startsWith(searchtext.toLowerCase()));
+      }else{
+        this.ContactListData = this.ContactListdataForSearch;
+      }
   }
 
 }
