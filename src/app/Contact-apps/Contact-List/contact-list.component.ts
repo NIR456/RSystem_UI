@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ContactComponent } from '../Add-New/contact.component';
 import { ContactService } from 'src/app/Services/contact.service';
 import { Requestmodels } from 'src/app/Models/request.model';
@@ -14,10 +14,13 @@ export class ContactListComponent implements OnInit {
   public ContactListData: Array<any> = [];
   public editdata: Array<any> = [];
   public ContactListdataForSearch: Array<any> = [];
-  constructor(private contactservice: ContactService,
-    private modalService: NgbModal,private toastrService: ToastrService) {
-
-  }
+  public page: number = 1;
+  
+  constructor(
+    private contactservice: ContactService,
+    private modalService: NgbModal,
+    private toastrService: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.GetContactListData();
@@ -25,20 +28,24 @@ export class ContactListComponent implements OnInit {
 
   AddConactDetails(Id: number = 0) {
     const modalRef = this.modalService.open(ContactComponent);
-    modalRef.componentInstance.data = { id: Id,FirstName: (this.editdata.length > 0 ? this.editdata[0].firstName : ''),LastName: (this.editdata.length > 0 ? this.editdata[0].lastName : ''),Email: (this.editdata.length > 0 ? this.editdata[0].email : '')};
+    modalRef.componentInstance.data = { 
+      id: Id,
+      FirstName: (this.editdata.length > 0 ? this.editdata[0].firstName : ''),
+      LastName: (this.editdata.length > 0 ? this.editdata[0].lastName : ''),
+      Email: (this.editdata.length > 0 ? this.editdata[0].email : '')
+    };
     modalRef.result.then(x => {
       if (x?.update) {
         this.GetContactListData();
         this.editdata = [];
-         if(Id > 0){
-          this.toastrService.success('Update SuccessFully !', '');
-         }else{
-          this.toastrService.success('Added SuccessFully !', '');
-         }
+        if (Id > 0) {
+          this.toastrService.success('Update Successfully!', '');
+        } else {
+          this.toastrService.success('Added Successfully!', '');
+        }
       }
     });
   }
-
 
   GetContactListData() {
     let request = new Requestmodels();
@@ -48,18 +55,16 @@ export class ContactListComponent implements OnInit {
         if (data.responseObject.length >= 0) {
           this.ContactListData = data.responseObject;
           this.ContactListdataForSearch = data.responseObject;
-        }else{
+        } else {
           this.toastrService.error(data.ResponseMessage, '');
         }
       }
-    }
-    )
+    });
   }
 
   EditContact(Id: number = 0) {
     this.editdata = this.ContactListData.filter(x => x.id == Id);
     this.AddConactDetails(Id);
-
   }
 
   DeleteContact(Id: number = 0) {
@@ -68,22 +73,23 @@ export class ContactListComponent implements OnInit {
     this.contactservice.getData(request).subscribe(data => {
       if (data && data.responseStatus) {
         this.GetContactListData();
-        this.toastrService.success('Deleted SuccessFully !', '');
-      }else{
+        this.toastrService.success('Deleted Successfully!', '');
+      } else {
         this.toastrService.error(data.ResponseMessage, '');
       }
+    });
+  }
+
+  SearchContactList(event: any) {
+    let ContactListData = this.ContactListdataForSearch;
+    let searchtext = event.target.value;
+    if (searchtext !== "") {
+      this.ContactListData = ContactListData.filter(x => 
+        x.firstName.toLowerCase().startsWith(searchtext.toLowerCase()) ||
+        x.lastName.toLowerCase().startsWith(searchtext.toLowerCase())
+      );
+    } else {
+      this.ContactListData = this.ContactListdataForSearch;
     }
-    )
   }
-
-  SearchContactList(event: any){
-     let ContactListData = this.ContactListData;
-     let searchtext = event.target.value;
-      if(event.target.value != ""){
-        this.ContactListData = ContactListData.filter(x => x.firstName.toLowerCase().startsWith(searchtext.toLowerCase()));
-      }else{
-        this.ContactListData = this.ContactListdataForSearch;
-      }
-  }
-
 }

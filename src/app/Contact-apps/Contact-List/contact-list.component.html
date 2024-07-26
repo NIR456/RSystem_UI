@@ -15,7 +15,12 @@
       <div class="main">
         <div class="form-group has-search">
           <span class="fa fa-search form-searchbox"></span>
-          <input type="text" class="form-control" placeholder="Search with Name" (keyup)="SearchContactList($event)"/>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search with Name"
+            (keyup)="SearchContactList($event)"
+          />
         </div>
       </div>
     </div>
@@ -35,7 +40,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let contact of ContactListData">
+          <tr *ngFor="let contact of ContactListData | paginate: { itemsPerPage: 10, currentPage: page }">
             <th scope="row">{{ contact.id }}</th>
             <td>{{ contact.firstName }}</td>
             <td>{{ contact.lastName }}</td>
@@ -61,6 +66,7 @@
           </tr>
         </tbody>
       </table>
+      <pagination-controls (pageChange)="page = $event"></pagination-controls>
     </div>
   </div>
 </div>

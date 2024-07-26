@@ -7,6 +7,7 @@ import { ContactListComponent } from './Contact-apps/Contact-List/contact-list.c
 import { ReactiveFormsModule } from '@angular/forms';
 import { ContactComponent } from './Contact-apps/Add-New/contact.component';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ToastrModule } from 'ngx-toastr';
   ],
   imports: [
     BrowserModule,
+    NgxPaginationModule,
     ReactiveFormsModule,
     HttpClientModule,
     ToastrModule.forRoot({
